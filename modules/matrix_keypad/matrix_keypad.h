@@ -1,19 +1,17 @@
 //=====[#include guards - begin]===============================================
 
-#ifndef _PC_SERIAL_COM_H_
-#define _PC_SERIAL_COM_H_
+#ifndef _MATRIX_KEYPAD_H_
+#define _MATRIX_KEYPAD_H_
 
 //=====[Declaration of public defines]=========================================
-
 
 //=====[Declaration of public data types]======================================
 
 //=====[Declarations (prototypes) of public functions]=========================
 
-void pcSerialComInit();
-void pcSerialComStringWrite( const char* str );
-void pcSerialComCharRead( char *receivedChar );
+void matrixKeypadInit( int updateTime_ms );
+char matrixKeypadUpdate();
 
 //=====[#include guards - end]=================================================
 
-#endif // _PC_SERIAL_COM_H_
+#endif // _MATRIX_KEYPAD_H_

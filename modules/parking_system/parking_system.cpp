@@ -1,11 +1,15 @@
 //=====[Libraries]=============================================================
 
-#include "mbed.h"
 #include "arm_book_lib.h"
+#include "mbed.h"
 
-#include "siren.h"
+#include "parking_system.h"
 
-#include "smart_car_system.h"
+#include "move_gate.h"
+#include "user_display.h"
+#include "sirens.h"
+#include "code.h"
+#include "car_at_entrance.h"
 
 //=====[Declaration of private defines]========================================
 
@@ -13,58 +17,46 @@
 
 //=====[Declaration and initialization of public global objects]===============
 
-DigitalOut sirenPin(PE_10);
-
 //=====[Declaration of external public global variables]=======================
 
 //=====[Declaration and initialization of public global variables]=============
 
 //=====[Declaration and initialization of private global variables]============
 
-static bool sirenState = OFF;
-
 //=====[Declarations (prototypes) of private functions]========================
 
 //=====[Implementations of public functions]===================================
 
 /**
-* Initializes the siren to not output
+* Initializes the smart car system by initializing the subsystems
 */
-void sirenInit()
+void parkingSystemInit()
 {
-    sirenPin = ON;
-}
- 
+    sirensInit();
 
-/**
-* Reads the current state of the siren
-* Returns the current state of the siren
-*/
-bool sirenStateRead()
-{
-    return sirenState;
+    userDisplayInit();
+
+    moveGateInit();
+
+    carAtEntranceInit();
+
+    resetCode(); // holds code; need to give code to move on
 }
 
 
 /**
-* Sets the state of the siren 
-* Parameter: The desired state of the siren
+* Updates the smart car system by updating its subsystems
 */
-void sirenStateWrite( bool state )
+void parkingSystemUpdate()
 {
-    sirenState = state;
-}
-
-/**
-* Updates the siren's output based on its state.
-*/
-void sirenUpdate() {
-    if ( sirenState == ON ) {
-        sirenPin = ON;
-    } else {
-        sirenPin = OFF;
-    }
+    carAtEntranceUpdate();
+    
+    openGate();
+    delay(10000);
+    closeGate();
+    delay(10000);
+    
+    delay(SYSTEM_TIME_INCREMENT_MS);
 }
 
 //=====[Implementations of private functions]==================================
-

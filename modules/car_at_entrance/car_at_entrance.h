@@ -1,9 +1,7 @@
 //=====[#include guards - begin]===============================================
 
-#ifndef _SMART_CAR_SYSTEM_H_
-#define _SMART_CAR_SYSTEM_H_
-
-#define TIME_INCREMENT_MS 10
+#ifndef _CAR_AT_ENTRANCE_H
+#define _CAR_AT_ENTRANCE_H
 
 //=====[Declaration of public defines]=========================================
 
@@ -11,9 +9,10 @@
 
 //=====[Declarations (prototypes) of public functions]=========================
 
-void smartCarSystemInit();
-void smartCarSystemUpdate();
+void carAtEntranceInit();
+void carAtEntranceUpdate();
+bool carIsDetected();
 
 //=====[#include guards - end]=================================================
 
-#endif // _SMART_CAR_SYSTEM_H_
+#endif // CAR_AT_ENTRANCE_H
