@@ -8,8 +8,8 @@
 
 //=====[Declaration of private defines]========================================
 
-#define NIGHT_LEVEL 26  
-#define DAY_LEVEL 17     
+#define NIGHT_LEVEL 70  
+#define DAY_LEVEL 40     
 #define LIGHT_SENSOR_SAMPLES 10 
 
 // Global variables

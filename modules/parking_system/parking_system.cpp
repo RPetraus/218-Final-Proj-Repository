@@ -52,9 +52,9 @@ void parkingSystemUpdate()
     carAtEntranceUpdate();
     
     openGate();
-    delay(10000);
+    delay(3000);
     closeGate();
-    delay(10000);
+    delay(3000);
     
     delay(SYSTEM_TIME_INCREMENT_MS);
 }

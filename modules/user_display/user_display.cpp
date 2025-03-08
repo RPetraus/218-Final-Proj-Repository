@@ -31,9 +31,9 @@ void userDisplayInit()
 {
     displayInit();
     displayCharPositionWrite ( 0,0 );
-    displayStringWrite( "hello" );
+    displayStringWrite( " Welcome " );
     displayCharPositionWrite ( 0,1 );
-    displayStringWrite( "   a            ");
+    displayStringWrite( "   MothaFucka        ");
 }
 
 
