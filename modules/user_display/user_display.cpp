@@ -31,9 +31,7 @@ void userDisplayInit()
 {
     displayInit();
     displayCharPositionWrite ( 0,0 );
-    displayStringWrite( " Welcome " );
-    displayCharPositionWrite ( 0,1 );
-    displayStringWrite( "   MothaFucka        ");
+    displayStringWrite( "Welcome!" );
 }
 
 
@@ -47,7 +45,7 @@ void userDisplayUpdate()
         displayCharPositionWrite ( 0,0 );
         displayStringWrite( "Welcome!" );
         displayCharPositionWrite ( 0,1 );
-        displayStringWrite( "Code & ID (or Card) Please");
+        displayStringWrite( "Please input code");
     }
     if ( gateUnlocked ) {
         displayCharPositionWrite( 0,0 );

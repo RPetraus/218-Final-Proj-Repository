@@ -9,7 +9,10 @@
 
 //=====[Declarations (prototypes) of public functions]=========================
 
+void inputCode();
 void resetCode();
+
+bool isCodeCorrect();
 
 //=====[#include guards - end]=================================================
 

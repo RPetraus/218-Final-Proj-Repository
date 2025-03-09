@@ -1,17 +1,21 @@
 //=====[Libraries]=============================================================
 
 #include "arm_book_lib.h"
+#include "matrix_keypad.h"
 #include "mbed.h"
 
 #include "parking_system.h"
 
 #include "move_gate.h"
+#include "pc_serial_com.h"
 #include "user_display.h"
 #include "sirens.h"
 #include "code.h"
 #include "car_at_entrance.h"
 
 //=====[Declaration of private defines]========================================
+
+#define UPDATE_TIME_MS                 10
 
 //=====[Declaration of private data types]=====================================
 
@@ -32,21 +36,24 @@
 */
 void parkingSystemInit()
 {
-    sirensInit();
+    pcSerialComInit(); // should not be initialized elsewhere
 
-    userDisplayInit();
+    sirensInit(); // should not be initialized elsewhere
 
-    moveGateInit();
+    matrixKeypadInit(UPDATE_TIME_MS); // should not be initialized elsewhere
 
-    carAtEntranceInit();
+    userDisplayInit(); // should not be initialized elsewhere
+
+    moveGateInit(); // should not be initialized elsewhere
+
+    carAtEntranceInit(); // should not be initialized elsewhere
 
     resetCode(); // holds code; need to give code to move on
+
+    inputCode();
 }
 
 
-/**
-* Updates the smart car system by updating its subsystems
-*/
 void parkingSystemUpdate()
 {
     carAtEntranceUpdate();

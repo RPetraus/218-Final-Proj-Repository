@@ -3,6 +3,10 @@
 #include "code.h"
 
 #include "pc_serial_com.h"
+#include "matrix_keypad.h"
+#include "display.h"
+
+#include "stdio.h"
 
 //=====[Declaration of private defines]========================================
 
@@ -25,6 +29,79 @@ static int codeLetterNum;
 //=====[Declarations (prototypes) of private functions]========================
 
 //=====[Implementations of public functions]===================================
+
+void inputCode() {
+    pcSerialComStringWrite("Please enter the code sequence: ");
+
+    int inputtedCode[CODE_LENGTH]; 
+    char keyReleased;
+    bool codeComplete = false;
+    int codeIndex = 0;
+
+    while (!codeComplete) {
+        keyReleased = matrixKeypadUpdate();
+        if (keyReleased != '\0') {
+            if (keyReleased >= '0' && keyReleased <= '9') {
+                if (codeIndex < CODE_LENGTH) {
+                    inputtedCode[codeIndex] = keyReleased - '0';
+
+                    pcSerialComStringWrite("*"); // for testing
+
+                    codeIndex++;
+                    
+                    if (codeIndex == CODE_LENGTH) {
+                        codeIndex = 0;
+                        codeComplete = true;
+                    }
+                }
+            }
+        }
+    }
+}
+
+/*
+void inputCode() {
+    int inputtedCode[CODE_LENGTH];
+    char keyReleased;
+    bool codeComplete = false;
+    int codeIndex = 0;
+    int bufferIndex = 11;
+    char buffer[50]; 
+
+    sprintf(buffer, "Input Code:    ");
+
+    displayCharPositionWrite ( 0,1 );
+    displayStringWrite( buffer );
+
+    pcSerialComStringWrite( buffer ); // for testing
+    pcSerialComStringWrite( "\r\n" ); // for testing
+
+    while (!codeComplete) {
+        keyReleased = matrixKeypadUpdate();
+
+        if (keyReleased != '\0') {
+            if (keyReleased >= '0' && keyReleased <= '9') {
+                if (codeIndex < CODE_LENGTH) {
+                    inputtedCode[codeIndex] = keyReleased - '0';
+                    buffer[bufferIndex] = keyReleased;
+
+                    pcSerialComStringWrite( buffer ); // for testing
+                    pcSerialComStringWrite( "\r\n" ); // for testing
+
+                    displayStringWrite( buffer );
+                    bufferIndex++;
+                    codeIndex++;
+                    
+                    if (codeIndex == CODE_LENGTH) {
+                        codeIndex = 0;
+                        codeComplete = true;
+                    }
+                }
+            }
+        }
+    }
+}
+*/
 
 void resetCode() {
     pcSerialComStringWrite("Please enter a new code sequence.\r\n");
@@ -93,6 +170,16 @@ void resetCode() {
             pcSerialComStringWrite("\r\nError: The codes did not match! Please try again.\r\n\r\n");
         }
     }
+}
+
+// not sure abt this
+bool isCodeCorrect(int inputtedCode[]) {
+    for (int i = 0; i < CODE_LENGTH; i++) {
+        if (inputtedCode[i] != codeSequence[i]) {
+            return false;
+        }
+    }
+    return true;
 }
 
 //=====[Implementations of private functions]==================================

@@ -5,6 +5,8 @@
 
 #include "matrix_keypad.h"
 
+#include "pc_serial_com.h" //for testing
+
 //=====[Declaration of private defines]========================================
 
 #define MATRIX_KEYPAD_NUMBER_OF_ROWS    4
@@ -88,6 +90,13 @@ char matrixKeypadUpdate()
         if( keyDetected != matrixKeypadLastKeyPressed ) {
             if( keyDetected == '\0' ) {
                 keyReleased = matrixKeypadLastKeyPressed;
+
+                // extra stuff not in actual
+                // Report key released
+                char releaseMsg[30];
+                sprintf(releaseMsg, "%c", keyReleased);
+                pcSerialComStringWrite(releaseMsg);
+
             }
             matrixKeypadState = MATRIX_KEYPAD_SCANNING;
         }
