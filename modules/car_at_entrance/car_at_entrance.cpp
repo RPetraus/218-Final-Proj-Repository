@@ -4,8 +4,6 @@
 
 #include "car_at_entrance.h"
 
-#include "pc_serial_com.h"  // Added this include for the serial communication functions
-
 //=====[Declaration of private defines]========================================
 
 #define CAR_PRESENT_LEVEL 70  

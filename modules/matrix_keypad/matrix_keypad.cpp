@@ -5,8 +5,6 @@
 
 #include "matrix_keypad.h"
 
-#include "pc_serial_com.h" //for testing
-
 //=====[Declaration of private defines]========================================
 
 #define MATRIX_KEYPAD_NUMBER_OF_ROWS    4
@@ -90,6 +88,57 @@ char matrixKeypadUpdate()
         if( keyDetected != matrixKeypadLastKeyPressed ) {
             if( keyDetected == '\0' ) {
                 keyReleased = matrixKeypadLastKeyPressed;
+            }
+            matrixKeypadState = MATRIX_KEYPAD_SCANNING;
+        }
+        break;
+
+    default:
+        matrixKeypadReset();
+        break;
+    }
+    return keyReleased;
+}
+
+/*
+char matrixKeypadUpdate()
+{
+    static int accumulatedDebounceMatrixKeypadTime = 0;
+    static char matrixKeypadLastKeyPressed = '\0';
+
+    char keyDetected = '\0';
+    char keyReleased = '\0';
+
+    switch( matrixKeypadState ) {
+
+    case MATRIX_KEYPAD_SCANNING:
+        keyDetected = matrixKeypadScan();
+        if( keyDetected != '\0' ) {
+            matrixKeypadLastKeyPressed = keyDetected;
+            accumulatedDebounceMatrixKeypadTime = 0;
+            matrixKeypadState = MATRIX_KEYPAD_DEBOUNCE;
+        }
+        break;
+
+    case MATRIX_KEYPAD_DEBOUNCE:
+        if( accumulatedDebounceMatrixKeypadTime >=
+            DEBOUNCE_BUTTON_TIME_MS ) {
+            keyDetected = matrixKeypadScan();
+            if( keyDetected == matrixKeypadLastKeyPressed ) {
+                matrixKeypadState = MATRIX_KEYPAD_KEY_HOLD_PRESSED;
+            } else {
+                matrixKeypadState = MATRIX_KEYPAD_SCANNING;
+            }
+        }
+        accumulatedDebounceMatrixKeypadTime =
+            accumulatedDebounceMatrixKeypadTime + timeIncrement_ms;
+        break;
+
+    case MATRIX_KEYPAD_KEY_HOLD_PRESSED:
+        keyDetected = matrixKeypadScan();
+        if( keyDetected != matrixKeypadLastKeyPressed ) {
+            if( keyDetected == '\0' ) {
+                keyReleased = matrixKeypadLastKeyPressed;
 
                 // extra stuff not in actual
                 // Report key released
@@ -108,6 +157,7 @@ char matrixKeypadUpdate()
     }
     return keyReleased;
 }
+*/
 
 //=====[Implementations of private functions]==================================
 

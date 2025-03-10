@@ -35,14 +35,14 @@ void entranceSubsystemInit()
 {
     displayCharPositionWrite ( 0,0 );
     displayStringWrite( "Welcome!        " );
-
-    for ( int i = 0; i < 10; i++ ) {
-        carIsDetected();
-    }
 }
 
 void entranceSubsystemUpdate() {
     int attemptNumber = 1;
+
+    for ( int i = 0; i < 10; i++ ) {
+        carIsDetected();
+    }
 
     while (carIsDetected() && !securityIssue) {
         bool correctCode = false;

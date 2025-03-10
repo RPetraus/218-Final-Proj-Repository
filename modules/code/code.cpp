@@ -12,7 +12,7 @@
 
 //=====[Declaration of private defines]========================================
 
-#define CODE_LENGTH 4
+#define CODE_LENGTH 6
 
 //=====[Declaration of private data types]=====================================
 
@@ -22,7 +22,7 @@
 
 //=====[Declaration and initialization of public global variables]=============
 
-int codeSequence[CODE_LENGTH]; //idk if this should be private or public (depends if used elsewhere, prob like unlocking subsytem)
+int codeSequence[CODE_LENGTH] = {1, 1, 1, 1, 1, 1}; //idk if this should be private or public (depends if used elsewhere, prob like unlocking subsytem)
 
 //=====[Declaration and initialization of private global variables]============
 
@@ -35,21 +35,27 @@ static int* inputCode();
 //=====[Implementations of public functions]===================================
 
 void resetCode() {
-    pcSerialComStringWrite("Please enter a new code sequence.\r\n");
-    pcSerialComStringWrite("The allowable length of the sequence is 4.\r\n");
+    pcSerialComStringWrite("\r\n\r\nPlease enter a new code sequence.\r\n");
+    pcSerialComStringWrite("The allowable length of the sequence is 6.\r\n");
     pcSerialComStringWrite("The sequence may include any of:\r\n");
     pcSerialComStringWrite("'0', '1', '2', '3', '4', '5', '6', '7', '8', '9'\r\n\r\n");
+    pcSerialComStringWrite("To cancel, press 'C' or 'ESC'.\r\n");  // Inform the user how to cancel
 
     int tempCode[CODE_LENGTH];  // Temporary array to store the first entry
     char receivedChar;
 
-    while (true) {  // Keep asking until the user enters the same code twice
-
-        // First Code Entry
+    while (true) {  // Keep asking until the user enters the same code twice or cancels
         pcSerialComStringWrite("Enter the new code: ");
+        
+        // First Code Entry
         for (int i = 0; i < CODE_LENGTH; i++) {
             do {
                 pcSerialComCharRead(&receivedChar);
+
+                if (receivedChar == 'C' || receivedChar == 'c' || receivedChar == 27) {  // Check if 'C' or ESC is pressed to cancel
+                    pcSerialComStringWrite("\r\nCode reset cancelled.\r\n");
+                    return;  // Exit the function (cancel the code reset)
+                }
 
                 if (receivedChar >= '0' && receivedChar <= '9') {
                     tempCode[i] = receivedChar - '0';
@@ -60,7 +66,7 @@ void resetCode() {
                     pcSerialComStringWrite("Current sequence: ");
                     for (int j = 0; j < i; j++) {
                         pcSerialComStringWrite("*");
-                    };
+                    }
                 }
             } while (true);
         }
@@ -73,6 +79,11 @@ void resetCode() {
             do {
                 pcSerialComCharRead(&receivedChar);
 
+                if (receivedChar == 'C' || receivedChar == 'c' || receivedChar == 27) {  // Check if 'C' or ESC is pressed to cancel
+                    pcSerialComStringWrite("\r\nCode reset cancelled.\r\n");
+                    return;  // Exit the function (cancel the code reset)
+                }
+
                 if (receivedChar >= '0' && receivedChar <= '9') {
                     if (tempCode[i] != receivedChar - '0') {
                         match = false;  // If any digit is different, set match to false
@@ -84,7 +95,7 @@ void resetCode() {
                     pcSerialComStringWrite("Current sequence: ");
                     for (int j = 0; j < i; j++) {
                         pcSerialComStringWrite("*");
-                    };
+                    }
                 }
             } while (true);
         }
@@ -117,6 +128,52 @@ bool isCodeCorrect() {
 
 //=====[Implementations of private functions]==================================
 
+static int* inputCode() {
+    static int inputtedCode[CODE_LENGTH];
+    char keyReleased;
+    bool codeComplete = false;
+    int codeIndex = 0;
+    int displayPosition = 10;
+    char keyReleasedStr[2];
+    keyReleasedStr[1] = '\0';
+    
+    Timer timer;
+    timer.start();
+    
+    chrono::milliseconds timeout(10000);
+    
+    while (!codeComplete) {
+        keyReleased = matrixKeypadUpdate();
+
+        if (timer.elapsed_time() >= timeout) {
+            break;
+        }
+
+        if (keyReleased != '\0') {
+            if (keyReleased >= '0' && keyReleased <= '9') {
+                if (codeIndex < CODE_LENGTH) {
+                    inputtedCode[codeIndex] = keyReleased - '0';
+
+                    keyReleasedStr[0] = keyReleased;
+                    displayCharPositionWrite(displayPosition, 1);
+                    displayStringWrite(keyReleasedStr);
+
+                    codeIndex++;
+                    displayPosition++;
+
+                    if (codeIndex == CODE_LENGTH) {
+                        codeIndex = 0;
+                        codeComplete = true;
+                    }
+                }
+            }
+        }
+    }
+
+    return inputtedCode;
+}
+
+/*
 static int* inputCode() {
     pcSerialComStringWrite("\r\nPlease enter the code sequence: ");
     
@@ -164,50 +221,5 @@ static int* inputCode() {
     }
 
     return inputtedCode;
-}
-
-/*
-void inputCode() {
-    int inputtedCode[CODE_LENGTH];
-    char keyReleased;
-    bool codeComplete = false;
-    int codeIndex = 0;
-
-
-    int bufferIndex = 11;
-    char buffer[50];
-
-    sprintf(buffer, "Input Code:    ");
-
-    displayCharPositionWrite ( 0,1 );
-    displayStringWrite( buffer );
-
-    pcSerialComStringWrite( buffer ); // for testing
-    pcSerialComStringWrite( "\r\n" ); // for testing
-
-    while (!codeComplete) {
-        keyReleased = matrixKeypadUpdate();
-
-        if (keyReleased != '\0') {
-            if (keyReleased >= '0' && keyReleased <= '9') {
-                if (codeIndex < CODE_LENGTH) {
-                    inputtedCode[codeIndex] = keyReleased - '0';
-                    buffer[bufferIndex] = keyReleased;
-
-                    pcSerialComStringWrite( buffer ); // for testing
-                    pcSerialComStringWrite( "\r\n" ); // for testing
-
-                    displayStringWrite( buffer );
-                    bufferIndex++;
-                    codeIndex++;
-                    
-                    if (codeIndex == CODE_LENGTH) {
-                        codeIndex = 0;
-                        codeComplete = true;
-                    }
-                }
-            }
-        }
-    }
 }
 */
