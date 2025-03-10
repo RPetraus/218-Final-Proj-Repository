@@ -1,7 +1,7 @@
 //=====[#include guards - begin]===============================================
 
-#ifndef _CODE_H_
-#define _CODE_H_
+#ifndef _ENTRANCE_SUBSYSTEM_H_
+#define _ENTRANCE_SUBSYSTEM_H_
 
 //=====[Declaration of public defines]=========================================
 
@@ -9,9 +9,9 @@
 
 //=====[Declarations (prototypes) of public functions]=========================
 
-void resetCode();
-bool isCodeCorrect();
+void entranceSubsystemInit();
+void entranceSubsystemUpdate();
 
 //=====[#include guards - end]=================================================
 
-#endif // _CODE_H_
+#endif // _ENTRANCE_SUBSYSTEM_H_

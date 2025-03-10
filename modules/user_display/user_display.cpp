@@ -35,9 +35,7 @@ void userDisplayInit()
 }
 
 
-/**
-* Updates the user display based on the current windshield wiper mode
-*/
+// prob need to compile all of the lcd updates into here once it's working
 void userDisplayUpdate()
 {
     /*

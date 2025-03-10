@@ -8,12 +8,12 @@
 
 //=====[Declaration of private defines]========================================
 
-#define NIGHT_LEVEL 70  
-#define DAY_LEVEL 40     
+#define CAR_PRESENT_LEVEL 70  
+#define CAR_NOT_PRESENT_LEVEL 40     
 #define LIGHT_SENSOR_SAMPLES 10 
 
 // Global variables
-bool Car_Detect = false;
+bool carDetected = false;
 
 //=====[Declaration of private data types]=====================================
 
@@ -26,75 +26,74 @@ AnalogIn lightsens(A0);
 
 //=====[Declarations (prototypes) of private functions]========================
 
-static bool sensorUpdate();
+static float sensorUpdate();
 
 //=====[Implementations of public functions]===================================
 
 void carAtEntranceInit()
 {
-    // Initialize light readings array to zero
     for (int i = 0; i < LIGHT_SENSOR_SAMPLES; i++) {
         lightReadingsArray[i] = 0.0;
     }
-    
-    // Send initialization message using the pc_serial_com module function
-    pcSerialComStringWrite("Car Detection System Initialized\r\n");
-    delay(2000); // to be able to see the printed message
 }
 
-void carAtEntranceUpdate()
-{
-    static bool previousDetectionState = false;
-    bool currentDetectionState = sensorUpdate();
-    if (currentDetectionState != previousDetectionState) {
-        if (currentDetectionState) {
-            pcSerialComStringWrite("Car Detected\r\n");
-            delay(2000); // to be able to see the printed message
-        } else {
-            pcSerialComStringWrite("No Car Detected\r\n");
-            delay(2000); // to be able to see the printed message
-        }
-        
-        previousDetectionState = currentDetectionState;
-    }
-}
 bool carIsDetected()
 {
-    return Car_Detect;
+    float currentLightLevel = sensorUpdate();
+
+    if (currentLightLevel >= CAR_PRESENT_LEVEL) {
+        carDetected = true;  
+    } else if (currentLightLevel < CAR_NOT_PRESENT_LEVEL) {
+        carDetected = false; 
+    }
+
+    return carDetected;
 }
+
+/*
+bool carIsDetected()
+{
+    float currentLightLevel = sensorUpdate();
+
+    if (currentLightLevel >= CAR_PRESENT_LEVEL) {
+        carDetected = true;  
+
+        // Debug
+        char buffer[50];
+        sprintf(buffer, "Light level: %.2f\r\n", currentLightLevel);
+        pcSerialComStringWrite(buffer);
+
+    } else if (currentLightLevel < CAR_NOT_PRESENT_LEVEL) {
+        carDetected = false; 
+
+        // Debug
+        char buffer[50];
+        sprintf(buffer, "Light level: %.2f\r\n", currentLightLevel);
+        pcSerialComStringWrite(buffer);
+
+    }
+
+    return carDetected;
+}
+*/
 
 //=====[Implementations of public functions]===================================
 
-static bool sensorUpdate() 
+static float sensorUpdate() 
 {
-    // Add new reading to array
     lightReadingsArray[lightSampleIndex] = lightsens.read();
     lightSampleIndex++;
     
-    // Reset index if we reach the end of array
     if (lightSampleIndex >= LIGHT_SENSOR_SAMPLES) {
         lightSampleIndex = 0;
     }
-    
-    // Calculate average
+
     float lightReadingsSum = 0.0;
     for (int i = 0; i < LIGHT_SENSOR_SAMPLES; i++) {
         lightReadingsSum += lightReadingsArray[i];
     }
-    
-    // Scale to 0-100 (higher number means darker)
+
     float currentLightLevel = (1.0 - (lightReadingsSum / LIGHT_SENSOR_SAMPLES)) * 100.0;
-    
-    // Debug: Print the current light level
-    char buffer[50];
-    sprintf(buffer, "Light level: %.2f\r\n", currentLightLevel);
-    pcSerialComStringWrite(buffer);  
-    
-    if (currentLightLevel >= NIGHT_LEVEL) {
-        Car_Detect = true;  
-    } else if (currentLightLevel < DAY_LEVEL) {
-        Car_Detect = false; 
-    }
-    
-    return Car_Detect;  // Return the state of Car_Detect
+
+    return currentLightLevel;
 }

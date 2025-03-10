@@ -6,12 +6,13 @@
 
 #include "parking_system.h"
 
-#include "move_gate.h"
-#include "pc_serial_com.h"
-#include "user_display.h"
 #include "sirens.h"
+#include "display.h"
+#include "pc_serial_com.h"
 #include "code.h"
+#include "move_gate.h"
 #include "car_at_entrance.h"
+#include "entrance_subsystem.h"
 
 //=====[Declaration of private defines]========================================
 
@@ -35,33 +36,28 @@
 * Initializes the smart car system by initializing the subsystems
 */
 void parkingSystemInit()
-{
+{    
+    sirensInit();
+
+    displayInit();
+
     pcSerialComInit(); // should not be initialized elsewhere
 
-    sirensInit(); // should not be initialized elsewhere
+    matrixKeypadInit(UPDATE_TIME_MS);
 
-    matrixKeypadInit(UPDATE_TIME_MS); // should not be initialized elsewhere
+    moveGateInit();
+    
+    carAtEntranceInit();
 
-    userDisplayInit(); // should not be initialized elsewhere
+    entranceSubsystemInit();
 
-    moveGateInit(); // should not be initialized elsewhere
-
-    carAtEntranceInit(); // should not be initialized elsewhere
-
-    resetCode(); // holds code; need to give code to move on
-
-    inputCode();
+    resetCode();
 }
 
 
 void parkingSystemUpdate()
 {
-    carAtEntranceUpdate();
-    
-    openGate();
-    delay(3000);
-    closeGate();
-    delay(3000);
+    entranceSubsystemUpdate();
     
     delay(SYSTEM_TIME_INCREMENT_MS);
 }
