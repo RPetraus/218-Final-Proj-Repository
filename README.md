@@ -13,18 +13,16 @@ We propose an automated underground parking system designed to enhance security,
 
 | Component                     | Description                                                         |
 |-------------------------------|---------------------------------------------------------------------|
-| **Microcontroller **          | STM32 Nucleo – the core controller for the system              |
+| **Microcontroller**          | STM32 Nucleo – the core controller for the system              |
 | **Matrix Keypad**     | Used for secure code-based entry     |
-| **Driver Seatbelt Sensor**    | Toggle switch to check if the driver's seatbelt is fastened         |
-| **Passenger Seatbelt Sensor** | Toggle switch to check if the driver's seatbelt is fastened         |
-| **Ignition Button**           | Push Button on NUCLEO board to turn engine on or off                |
+| **LDR Sensor**    | Detects vehicle presence at the entrance and parking spot      |
+| **Ultrasonic Sensor** | Measures distance to prevent collisions        |
+| **2x Buzzer**           | One for collision warning, one for security alert               |
 | **Indicator LEDs**            | Blue LED to show engine on and Green LED to show ignition enabled   |
-| **Wiper Mode Selector**       | Potentiometer that selects wiper modes: HI, LO, INT, OFF            |
-| **Int Delay Selector**        | Potentiometer that selects delay time in int mode: SHORT, MED, LONG |
-| **LCD Display**               | Displays the current wiper mode and delay time chosen by user       |
-| **Windshield Wiper Motor**    | Positional Servo that simulates windshield wiper movement           |
-| **Siren**                     | Sounds when try to start the engine when system is not ready        |
-| **Windshield Wiper**          | Pencil                                                              |
+| **2x LED**       | Red LED indicates gate movement; Green LED signals safe entry         |
+| **LCD Display**        | Displays system messages |
+| **Positional Servo**               | Controls gate movement by lifting and lowering it      |
+
 
 # Wiper Modes  
 
