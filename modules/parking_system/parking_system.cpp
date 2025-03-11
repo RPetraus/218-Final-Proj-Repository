@@ -14,7 +14,7 @@
 #include "car_at_entrance.h"
 #include "entrance_subsystem.h"
 #include "exit_subsystem.h"
-#include "collision_sensor.h"
+#include "distance_sensor.h"
 #include "interrupt.h"
 
 //=====[Declaration of private defines]========================================
@@ -51,13 +51,11 @@ void parkingSystemInit()
 
     exitSubsystemInit();
 
-    collisionSensorInit();
+    distanceSensorInit();
 
     codeResetButtonInterrupt();
 
-
-
-    //collisionSensorInterrupt();
+    collisionSensorInterrupt();
 }
 
 
@@ -66,8 +64,6 @@ void parkingSystemUpdate()
     entranceSubsystemUpdate();
 
     exitSubsystemUpdate();
-
-    collisionSensorUpdate();
     
     delay(SYSTEM_TIME_INCREMENT_MS);
 }
