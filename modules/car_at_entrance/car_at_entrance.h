@@ -12,6 +12,7 @@
 void carAtEntranceInit();
 void carAtEntranceUpdate();
 bool carIsDetected();
+float sensorUpdate();
 
 //=====[#include guards - end]=================================================
 

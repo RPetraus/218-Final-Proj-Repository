@@ -124,7 +124,8 @@ bool isCodeCorrect() {
 //=====[Implementations of private functions]==================================
 
 static int* inputCode() {
-    static int inputtedCode[CODE_LENGTH];
+    //static int inputtedCode[CODE_LENGTH];
+    int* inputtedCode = new int[CODE_LENGTH];
     char keyReleased;
     bool codeComplete = false;
     int codeIndex = 0;

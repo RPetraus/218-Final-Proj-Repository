@@ -38,15 +38,10 @@ void entranceSubsystemInit()
 }
 
 void entranceSubsystemUpdate() {
-    int attemptNumber = 1;
-
-    for ( int i = 0; i < 10; i++ ) {
-        carIsDetected();
-    }
-
-    while (carIsDetected() && !securityIssue) {
+    if (carIsDetected() && !securityIssue) {
         bool correctCode = false;
         int incorrectAttempts = 0;
+        int attemptNumber = 1;
 
         displayCharPositionWrite(0, 0);
         displayStringWrite("3 10sec Attempts");
@@ -55,6 +50,10 @@ void entranceSubsystemUpdate() {
             showAttempt(attemptNumber);
 
             if (isCodeCorrect()) {
+                displayCharPositionWrite(0, 0);
+                displayStringWrite("Welcome!        ");
+                displayCharPositionWrite(0, 1);
+                displayStringWrite("                ");
                 correctCode = true;
                 openGate();
                 delay(5000);
@@ -65,32 +64,26 @@ void entranceSubsystemUpdate() {
             }
         }
 
+        displayCharPositionWrite(0, 0);
+        displayStringWrite("Welcome!        ");
+        displayCharPositionWrite(0, 1);
+        displayStringWrite("                ");
+
         for (int i = 0; i < 10; i++) {
-            carIsDetected();
+            sensorUpdate();
         }
 
-        if (!carIsDetected()) {
-            break;
-        }
+        if (!correctCode && carIsDetected()) {
+            securityIssue = true;
+            externalSirenStateWrite(ON);
+            sirensUpdate();
 
-        if (!correctCode) {
             displayCharPositionWrite(0, 0);
             displayStringWrite("3 WRONG ATTEMPTS");
 
             displayCharPositionWrite(0, 1);
             displayStringWrite("ALARM ACTIVATED!");
-            
-            securityIssue = true;
-            externalSirenStateWrite(ON);
-            sirensUpdate();
         }
-    }
-
-    if (!securityIssue) {
-        displayCharPositionWrite(0, 0);
-        displayStringWrite("Welcome!        ");
-        displayCharPositionWrite(0, 1);
-        displayStringWrite("                ");
     }
 }
 

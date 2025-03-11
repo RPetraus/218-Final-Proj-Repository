@@ -7,13 +7,16 @@
 #include "move_gate.h"
 #include "car_at_entrance.h"
 
+
+#include "pc_serial_com.h"
+
 //=====[Declaration of private defines]========================================
 
 //=====[Declaration of private data types]=====================================
 
 //=====[Declaration and initialization of public global objects]===============
 
-DigitalIn exitButton(PG_1);
+DigitalIn exitButton(D12);
 
 //=====[Declaration of external public global variables]=======================
 
@@ -32,8 +35,14 @@ void exitSubsystemInit()
 
 void exitSubsystemUpdate() {
     if (exitButton) {
+
+        pcSerialComStringWrite("\r\ncalling open gate from exit subsystem\r\n");
+
         openGate();
         delay(5000);
+
+        pcSerialComStringWrite("\r\ncalling close gate from exit subsystem\r\n");
+
         closeGate();
     }
 }

@@ -7,8 +7,8 @@
 
 //=====[Declaration of private defines]========================================
 
-#define DUTY_MIN                             0.04
-#define DUTY_MAX                             0.0735
+#define GATE_LOW                             0.065
+#define GATE_HIGH                            0.02
 #define PERIOD                               0.02
 #define MOTOR_DELAY_MS                       25
 
@@ -34,24 +34,24 @@ void moveGateInit() {
     greenLED = OFF;
     redLED = OFF;
     servo.period(PERIOD);
-    servo.write(DUTY_MIN);
+    servo.write(GATE_LOW);
 }
 
 void openGate() {
     redLED = ON;
-    for (int i = 0; i < 40; i++) {
-        servo.write(DUTY_MIN + ((DUTY_MAX - DUTY_MIN) / 40) * i);
+    for (int i = 0; i < 250; i++) {
+        servo.write(GATE_LOW + ((GATE_HIGH - GATE_LOW) / 250) * i);
         delay(MOTOR_DELAY_MS);
     }
     redLED = OFF;
     greenLED = ON;
 }
 
-void closeGate() {
+void closeGate() {    
     greenLED = OFF;
     redLED = ON;
-    for (int i = 0; i < 40; i++) {
-        servo.write(DUTY_MAX - ((DUTY_MAX - DUTY_MIN) / 40) * i);
+    for (int i = 0; i < 250; i++) {
+        servo.write(GATE_HIGH - ((GATE_HIGH - GATE_LOW) / 250) * i);
         delay(MOTOR_DELAY_MS);
     }
     redLED = OFF;

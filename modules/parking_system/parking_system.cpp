@@ -35,7 +35,7 @@
 //=====[Implementations of public functions]===================================
 
 void parkingSystemInit()
-{    
+{     
     sirensInit();
 
     displayInit();
@@ -53,7 +53,6 @@ void parkingSystemInit()
     collisionSensorInit();
 
     resetCode();
-
 }
 
 
