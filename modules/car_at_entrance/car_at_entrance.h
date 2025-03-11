@@ -10,7 +10,6 @@
 //=====[Declarations (prototypes) of public functions]=========================
 
 void carAtEntranceInit();
-void carAtEntranceUpdate();
 bool carIsDetected();
 float sensorUpdate();
 
