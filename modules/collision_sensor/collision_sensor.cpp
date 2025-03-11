@@ -7,6 +7,11 @@
 
 #include "sirens.h"
 
+
+
+
+//#include "pc_serial_com.h"
+
 //=====[Declaration of private defines]========================================
 
 #define DISTANCE_SENSOR_SAMPLES 10
@@ -16,8 +21,18 @@
 
 //=====[Declaration and initialization of public global objects]===============
 
+
+
+
 DigitalOut trigger(D14);
 DigitalIn echo(D15);
+
+
+
+
+
+
+
 
 //=====[Declaration of external public global variables]=======================
 
@@ -34,6 +49,7 @@ static float distanceUpdate();
 static float measureDistance();
 
 //=====[Implementations of public functions]===================================
+
 
 void collisionSensorInit() 
 {
@@ -55,6 +71,12 @@ void collisionSensorInit()
 }
 */
 
+
+
+
+
+
+
 void collisionSensorUpdate() {    
     if (distanceUpdate() < COLLISION_ALARM_DISTANCE_CM) {
         internalSirenStateWrite(ON);
@@ -64,6 +86,14 @@ void collisionSensorUpdate() {
         sirensUpdate(); 
     }
 }
+
+
+
+
+
+
+
+
 
 //=====[Implementations of private functions]==================================
 
@@ -84,6 +114,9 @@ static float distanceUpdate() {
 
     return averageDistance;
 }
+
+
+
 
 /*
 static float distanceUpdate() {
@@ -110,6 +143,18 @@ static float distanceUpdate() {
     return averageDistance;
 }
 */
+
+
+
+
+
+
+
+
+
+
+
+
 
 static float measureDistance() {
     trigger = 1;

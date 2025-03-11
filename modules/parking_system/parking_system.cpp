@@ -15,6 +15,7 @@
 #include "entrance_subsystem.h"
 #include "exit_subsystem.h"
 #include "collision_sensor.h"
+#include "interrupt.h"
 
 //=====[Declaration of private defines]========================================
 
@@ -52,7 +53,11 @@ void parkingSystemInit()
 
     collisionSensorInit();
 
-    resetCode();
+    codeResetButtonInterrupt();
+
+
+
+    //collisionSensorInterrupt();
 }
 
 

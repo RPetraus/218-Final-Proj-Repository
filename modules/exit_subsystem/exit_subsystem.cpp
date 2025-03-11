@@ -35,14 +35,8 @@ void exitSubsystemInit()
 
 void exitSubsystemUpdate() {
     if (exitButton) {
-
-        pcSerialComStringWrite("\r\ncalling open gate from exit subsystem\r\n");
-
         openGate();
         delay(5000);
-
-        pcSerialComStringWrite("\r\ncalling close gate from exit subsystem\r\n");
-
         closeGate();
     }
 }
