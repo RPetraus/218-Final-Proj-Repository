@@ -5,10 +5,6 @@
 #include "exit_subsystem.h"
 
 #include "move_gate.h"
-#include "car_at_entrance.h"
-
-
-#include "pc_serial_com.h"
 
 //=====[Declaration of private defines]========================================
 
