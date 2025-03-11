@@ -2,7 +2,7 @@
 
 Ryan Petrauskas and Brandon Mori
 
-PROJECT DESCRIPTION
+# Project Description
 Luxury underground parking in high-end areas like Manhattan demands enhanced security, convenience, and safety for vehicle owners. Existing parking systems often lack sufficient access control and collision prevention mechanisms, increasing the risk of unauthorized access and potential accidents within parking spaces. This creates a need for a more secure and user-friendly solution that provides peace of mind while ensuring efficient vehicle management.
 
 
