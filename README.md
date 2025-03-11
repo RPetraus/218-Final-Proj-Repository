@@ -13,7 +13,7 @@ We propose an automated underground parking system designed to enhance security,
 
 | Component                     | Description                                                         |
 |-------------------------------|---------------------------------------------------------------------|
-| **Driver Seat Sensor**        | Push button to detect if the driver seat is occupied                |
+| **Driver Seat S**        | Push button to detect if the driver seat is occupied                |
 | **Passenger Seat Sensor**     | Push button to detect if the passenger seat is occupied             |
 | **Driver Seatbelt Sensor**    | Toggle switch to check if the driver's seatbelt is fastened         |
 | **Passenger Seatbelt Sensor** | Toggle switch to check if the driver's seatbelt is fastened         |
