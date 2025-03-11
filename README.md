@@ -1,10 +1,12 @@
 # Automated Luxury Parking System
 
-Ryan Petrauskas and Livy Bottomley
+Ryan Petrauskas and Brandon Mori
 
-The Windshield Wiper Control System in Project 3 enhances driving convenience and safety by creating windshield wiper functions in various driving conditions. The system ensures that the engine is only started when both the driver and passenger seats are occupied, and both seatbelts are fastened. The wipers can operate in four modes: high-speed, low-speed, intermittent, and off. In the intermittent mode, the user can select from three different delay times: short, medium, or long. The wipers will only function if the engine is running, and they will stop when the engine is turned off. At high-speed, the servo moves at 40 rpm and 30 rpm at low-speed. If the engine or wipers are turned off, the wipers will move back to their original position.
+Problem Definition
+Luxury underground parking in high-end areas like Manhattan demands enhanced security, convenience, and safety for vehicle owners. Existing parking systems often lack sufficient access control and collision prevention mechanisms, increasing the risk of unauthorized access and potential accidents within parking spaces. This creates a need for a more secure and user-friendly solution that provides peace of mind while ensuring efficient vehicle management.
 
-In this project, we chose to use a position servo motor to simulate the windshield wiper motor. The reason for this choice is that position servo motors allow precise control over the wiper's position. This is ideal for accurately simulating the movement of the wipers from one end of the windshield to the other. Additionally, position servos can hold a specific position until instructed to move again, which is an important trait for the movement of windshield wipers.
+Proposed Solution
+We propose an automated underground parking system designed to enhance security, safety, and user convenience. The system utilizes an LDR sensor to detect vehicle presence at the entrance gate, which can be unlocked using a matrix keypad for secure code-based access. LED indicators (red and green) inside the parking area guide the driver on when it is safe to enter. Once inside, an ultrasonic distance sensor helps prevent collisions by triggering a buzzer alert when the vehicle is too close to the wall. For a seamless exit, an exit button opens the gate, allowing the driver to back out safely. Additionally, a button inside the parking spot enables the driver to change the matrix keypad code, with updates displayed on the serial monitor for enhanced security control.
 
 
 # System Components  
