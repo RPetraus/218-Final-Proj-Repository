@@ -13,15 +13,15 @@ We propose an automated underground parking system designed to enhance security,
 
 | Component                     | Description                                                         |
 |-------------------------------|---------------------------------------------------------------------|
-| **Microcontroller**          | STM32 Nucleo – the core controller for the system              |
-| **Matrix Keypad**     | Used for secure code-based entry     |
-| **LDR Sensor**    | Detects vehicle presence at the entrance and parking spot      |
-| **Ultrasonic Sensor** | Measures distance to prevent collisions        |
-| **2x Buzzer**           | One for collision warning, one for security alert               |
+| **Microcontroller**           | STM32 Nucleo – the core controller for the system              |
+| **Matrix Keypad**             | Used for secure code-based entry                               |
+| **LDR Sensor**                | Detects vehicle presence at the entrance and parking spot      |
+| **Ultrasonic Sensor**         | Measures distance to prevent collisions                          |
+| **2x Buzzer**                 | One for collision warning, one for security alert               |
 | **Indicator LEDs**            | Blue LED to show engine on and Green LED to show ignition enabled   |
-| **2x LED**       | Red LED indicates gate movement; Green LED signals safe entry         |
-| **LCD Display**        | Displays system messages |
-| **Positional Servo**               | Controls gate movement by lifting and lowering it      |
+| **2x LED**                    | Red LED indicates gate movement; Green LED signals safe entry         |
+| **LCD Display**               | Displays system messages |
+| **Positional Servo**          | Controls gate movement by lifting and lowering it                      |
 
 
 # Wiper Modes  
