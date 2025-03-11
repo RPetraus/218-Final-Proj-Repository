@@ -11,7 +11,7 @@
 
 void codeResetButtonInterrupt();
 
-//void collisionSensorInterrupt();
+void collisionSensorInterrupt();
 
 //=====[#include guards - end]=================================================
 
