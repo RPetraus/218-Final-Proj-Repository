@@ -13,8 +13,8 @@ We propose an automated underground parking system designed to enhance security,
 
 | Component                     | Description                                                         |
 |-------------------------------|---------------------------------------------------------------------|
-| **Driver Seat S     **        | Push button to detect if the driver seat is occupied                |
-| **Passenger Seat Sensor**     | Push button to detect if the passenger seat is occupied             |
+| **Microcontroller **          | STM32 Nucleo – the core controller for the system              |
+| **Matrix Keypad**     | Used for secure code-based entry     |
 | **Driver Seatbelt Sensor**    | Toggle switch to check if the driver's seatbelt is fastened         |
 | **Passenger Seatbelt Sensor** | Toggle switch to check if the driver's seatbelt is fastened         |
 | **Ignition Button**           | Push Button on NUCLEO board to turn engine on or off                |
