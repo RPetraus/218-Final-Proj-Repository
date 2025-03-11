@@ -1,7 +1,7 @@
 //=====[#include guards - begin]===============================================
 
-#ifndef _DISTANCE_SENSOR_H_
-#define _DISTANCE_SENSOR_H_
+#ifndef _COLLISION_SENSOR_H_
+#define _COLLISION_SENSOR_H_
 
 //=====[Declaration of public defines]=========================================
 
@@ -9,9 +9,10 @@
 
 //=====[Declarations (prototypes) of public functions]=========================
 
-void collisionSensorInit();
+void distanceSensorInit();
 void collisionSensorUpdate();
+float distanceUpdate();
 
 //=====[#include guards - end]=================================================
 
-#endif // _DISTANCE_SENSOR_H_
+#endif // _COLLISION_SENSOR_H_
