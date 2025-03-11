@@ -3,14 +3,9 @@
 #include "mbed.h"
 #include "arm_book_lib.h"
 
-#include "collision_sensor.h"
+#include "distance_sensor.h"
 
 #include "sirens.h"
-
-
-
-
-//#include "pc_serial_com.h"
 
 //=====[Declaration of private defines]========================================
 
@@ -21,18 +16,8 @@
 
 //=====[Declaration and initialization of public global objects]===============
 
-
-
-
 DigitalOut trigger(D14);
 DigitalIn echo(D15);
-
-
-
-
-
-
-
 
 //=====[Declaration of external public global variables]=======================
 
@@ -45,13 +30,11 @@ int distanceSampleIndex = 0;
 
 //=====[Declarations (prototypes) of private functions]=========================
 
-static float distanceUpdate();
 static float measureDistance();
 
 //=====[Implementations of public functions]===================================
 
-
-void collisionSensorInit() 
+void distanceSensorInit() 
 {
     for (int i = 0; i < 10; i++) {
         distanceUpdate();
@@ -71,12 +54,6 @@ void collisionSensorInit()
 }
 */
 
-
-
-
-
-
-
 void collisionSensorUpdate() {    
     if (distanceUpdate() < COLLISION_ALARM_DISTANCE_CM) {
         internalSirenStateWrite(ON);
@@ -87,17 +64,7 @@ void collisionSensorUpdate() {
     }
 }
 
-
-
-
-
-
-
-
-
-//=====[Implementations of private functions]==================================
-
-static float distanceUpdate() {
+float distanceUpdate() {
     distanceReadingsArray[distanceSampleIndex] = measureDistance();
     distanceSampleIndex++;
 
@@ -115,11 +82,8 @@ static float distanceUpdate() {
     return averageDistance;
 }
 
-
-
-
 /*
-static float distanceUpdate() {
+float distanceUpdate() {
     distanceReadingsArray[distanceSampleIndex] = measureDistance();
     distanceSampleIndex++;
 
@@ -144,17 +108,7 @@ static float distanceUpdate() {
 }
 */
 
-
-
-
-
-
-
-
-
-
-
-
+//=====[Implementations of private functions]==================================
 
 static float measureDistance() {
     trigger = 1;
@@ -169,7 +123,6 @@ static float measureDistance() {
     timer.stop();
 
     float duration = chrono::duration<float, std::micro>(timer.elapsed_time()).count();
-    float distance_cm = (duration * 0.0343f) / 2.0f;
-    
-    return distance_cm;
+
+    return (duration * 0.0343f) / 2.0f;
 }
