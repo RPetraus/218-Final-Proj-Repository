@@ -1,4 +1,4 @@
-# Automatic Headlight Control System  
+# Automated Luxury Parking System
 
 Ryan Petrauskas and Livy Bottomley
 
