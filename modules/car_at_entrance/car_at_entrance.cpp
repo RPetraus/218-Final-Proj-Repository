@@ -4,19 +4,11 @@
 
 #include "car_at_entrance.h"
 
-
-
-
-#include "pc_serial_com.h"
-
 //=====[Declaration of private defines]========================================
 
 #define CAR_PRESENT_LEVEL 70  
 #define CAR_NOT_PRESENT_LEVEL 40     
 #define LIGHT_SENSOR_SAMPLES 10 
-
-// Global variables
-bool carDetected = false;
 
 //=====[Declaration of private data types]=====================================
 
@@ -26,6 +18,14 @@ static int lightSampleIndex = 0;
 //=====[Declaration and initialization of public global objects]===============
 
 AnalogIn lightsens(A0);
+
+//=====[Declaration of external public global variables]=======================
+
+//=====[Declaration and initialization of public global variables]=============
+
+//=====[Declaration and initialization of private global variables]============
+
+bool carDetected;
 
 //=====[Declarations (prototypes) of private functions]========================
 
@@ -78,7 +78,6 @@ bool carIsDetected()
     return carDetected;
 }
 */
-
 
 float sensorUpdate() 
 {
