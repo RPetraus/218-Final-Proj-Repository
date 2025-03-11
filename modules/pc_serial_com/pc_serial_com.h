@@ -5,12 +5,10 @@
 
 //=====[Declaration of public defines]=========================================
 
-
 //=====[Declaration of public data types]======================================
 
 //=====[Declarations (prototypes) of public functions]=========================
 
-void pcSerialComInit();
 void pcSerialComStringWrite( const char* str );
 void pcSerialComCharRead( char *receivedChar );
 

@@ -1,7 +1,7 @@
 //=====[#include guards - begin]===============================================
 
-#ifndef _COLLISION_DETECTION_SUBSYSTEM_H_
-#define _COLLISION_DETECTION_SUBSYSTEM_H_
+#ifndef _EXIT_SUBSYSTEM_H_
+#define _EXIT_SUBSYSTEM_H_
 
 //=====[Declaration of public defines]=========================================
 
@@ -9,9 +9,9 @@
 
 //=====[Declarations (prototypes) of public functions]=========================
 
-void exitButtonInit();
-void exitButtonUpdate();
+void exitSubsystemInit();
+void exitSubsystemUpdate();
 
 //=====[#include guards - end]=================================================
 
-#endif // _COLLISION_DETECTION_SUBSYSTEM_H_
+#endif // _EXIT_SUBSYSTEM_H_

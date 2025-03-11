@@ -1,7 +1,7 @@
 //=====[#include guards - begin]===============================================
 
-#ifndef _USER_DISPLAY_H_
-#define _USER_DISPLAY_H_
+#ifndef _DISTANCE_SENSOR_H_
+#define _DISTANCE_SENSOR_H_
 
 //=====[Declaration of public defines]=========================================
 
@@ -9,9 +9,9 @@
 
 //=====[Declarations (prototypes) of public functions]=========================
 
-void userDisplayInit();
-void userDisplayUpdate();
+void collisionSensorInit();
+void collisionSensorUpdate();
 
 //=====[#include guards - end]=================================================
 
-#endif // _USER_DISPLAY_H_
+#endif // _DISTANCE_SENSOR_H_

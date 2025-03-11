@@ -1,5 +1,4 @@
 //=====[Libraries]=============================================================
-
 #include "mbed.h"
 #include "arm_book_lib.h"
 
@@ -7,7 +6,6 @@
 
 #include "move_gate.h"
 #include "car_at_entrance.h"
-#include "pc_serial_com.h"
 
 //=====[Declaration of private defines]========================================
 
@@ -15,7 +13,7 @@
 
 //=====[Declaration and initialization of public global objects]===============
 
-DigitalIn exitButtonPin(PG_1);
+DigitalIn exitButton(PG_1);
 
 //=====[Declaration of external public global variables]=======================
 
@@ -23,19 +21,24 @@ DigitalIn exitButtonPin(PG_1);
 
 //=====[Declaration and initialization of private global variables]============
 
-static bool gateIsOpen = false;
-static bool previousButtonState = false;
-
 //=====[Declarations (prototypes) of private functions]=========================
 
 //=====[Implementations of public functions]===================================
 
 void exitSubsystemInit()
 {
-    gateIsOpen = false;
-    pcSerialComStringWrite("Exit Button System Initialized\r\n");
+    exitButton.mode(PullDown);
 }
 
+void exitSubsystemUpdate() {
+    if (exitButton) {
+        openGate();
+        delay(5000);
+        closeGate();
+    }
+}
+
+/*
 void exitSubsysemUpdate()
 {
     // Read current button state (assuming active low button - pressed when LOW)
@@ -61,5 +64,6 @@ void exitSubsysemUpdate()
     // Update previous button state
     previousButtonState = currentButtonState;
 }
+*/
 
 //=====[Implementations of private functions]==================================

@@ -24,13 +24,6 @@ UnbufferedSerial uartUsb(USBTX, USBRX, 115200);
 
 //=====[Implementations of public functions]===================================
 /**
-* Initializes serial communication 
-*/
-void pcSerialComInit()
-{
-}
-
-/**
 * Sends a string over the serial interface.
 * Parameter: The string to be written to the interface
 */

@@ -13,6 +13,8 @@
 #include "move_gate.h"
 #include "car_at_entrance.h"
 #include "entrance_subsystem.h"
+#include "exit_subsystem.h"
+#include "collision_sensor.h"
 
 //=====[Declaration of private defines]========================================
 
@@ -32,16 +34,11 @@
 
 //=====[Implementations of public functions]===================================
 
-/**
-* Initializes the smart car system by initializing the subsystems
-*/
 void parkingSystemInit()
 {    
     sirensInit();
 
     displayInit();
-
-    pcSerialComInit(); // should not be initialized elsewhere
 
     matrixKeypadInit(UPDATE_TIME_MS);
 
@@ -51,13 +48,22 @@ void parkingSystemInit()
 
     entranceSubsystemInit();
 
+    exitSubsystemInit();
+
+    collisionSensorInit();
+
     resetCode();
+
 }
 
 
 void parkingSystemUpdate()
 {
     entranceSubsystemUpdate();
+
+    exitSubsystemUpdate();
+
+    collisionSensorUpdate();
     
     delay(SYSTEM_TIME_INCREMENT_MS);
 }
