@@ -6,7 +6,7 @@
 #include "interrupt.h"
 
 #include "code.h"
-#include "distance_sensor.h"
+#include "collision_sensor.h"
 
 //=====[Declaration of private defines]========================================
 

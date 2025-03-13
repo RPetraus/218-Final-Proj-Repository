@@ -14,7 +14,7 @@
 #include "car_at_entrance.h"
 #include "entrance_subsystem.h"
 #include "exit_subsystem.h"
-#include "distance_sensor.h"
+#include "collision_sensor.h"
 #include "interrupt.h"
 
 //=====[Declaration of private defines]========================================

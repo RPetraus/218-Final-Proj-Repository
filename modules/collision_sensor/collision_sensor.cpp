@@ -3,7 +3,7 @@
 #include "mbed.h"
 #include "arm_book_lib.h"
 
-#include "distance_sensor.h"
+#include "collision_sensor.h"
 
 #include "sirens.h"
 
