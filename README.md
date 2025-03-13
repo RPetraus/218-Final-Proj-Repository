@@ -24,14 +24,19 @@ We propose an automated underground parking system designed to enhance security,
 | **Positional Servo**          | Controls gate movement by lifting and lowering it                      |
 
 
-# Wiper Modes  
+# Fail Cases  
 
-| Mode    | Potentiometer Range | Behavior                                                  |
-|---------|---------------------|-----------------------------------------------------------|
-| **HI**  | >= 0.75             | Wipers move at high speed                                 |
-| **LO**  | 0.50 - 0.75         | Wipers move at low speed                                  |
-| **INT** | 0.25 - 0.50         | Wipers move at low speed, with given delay between sweeps |
-| **OFF** | < 0.25              | Wipers do not move and remain stationary                  |
+| Fail Case                         | Description                                                   | Solution                                                       |
+|------------------------------------|---------------------------------------------------------------|---------------------------------------------------------------|
+| **Wrong Code Entered**             | The user enters an incorrect code for access.                 | The system allows 3 attempts before triggering a security issue. |
+| **Security Issue Triggered**      | After 3 incorrect attempts, a security issue is flagged.      | An alarm is triggered (external siren is activated) and the display shows "ALARM ACTIVATED!" |
+| **Car Not Detected**              | The system fails to detect the car at the entrance.            | Ensure proper sensor functionality and that the car is within detection range. |
+| **Gate Fails to Open**             | The gate fails to open after the correct code is entered.     | Verify motor functions and ensure gate opening command (`openGate()`) is being executed correctly. |
+| **Display Failure**                | The display shows incorrect or no message during operation.   | Check the display wiring and ensure correct positioning in the `displayCharPositionWrite` and `displayStringWrite` calls. |
+| **Code Check Failure**             | The code check (`isCodeCorrect()`) fails but should succeed.  | Debug the `isCodeCorrect()` function for issues with code validation. |
+| **Timing Issues**                  | The timing for 10 seconds for attempts might be incorrect.    | Ensure the delay functions and timing conditions are set correctly for each attempt. |
+| **Siren Not Triggered**            | The external siren doesn't activate after failed attempts.    | Check the siren control logic (`externalSirenStateWrite(ON)`) and the `sirensUpdate()` function. |
+| **Incorrect Sensor Update**        | The sensors fail to update correctly after the 3 failed attempts. | Ensure that the `sensorUpdate()` function works properly and is called the expected number of times (10). |
 
 # Intermittent Delay Time Modes  
 
