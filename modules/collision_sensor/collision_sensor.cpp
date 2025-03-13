@@ -41,19 +41,6 @@ void distanceSensorInit()
     }
 }
 
-/*
-void collisionSensorInit() 
-{
-    pcSerialComStringWrite("\r\n\r\n\r\n\r\n\r\n");
-    
-    for (int i = 0; i < 10; i++) {
-        distanceUpdate();
-    }
-
-    pcSerialComStringWrite("\r\n\r\n\r\n\r\n\r\n");
-}
-*/
-
 void collisionSensorUpdate() {    
     if (distanceUpdate() < COLLISION_ALARM_DISTANCE_CM) {
         internalSirenStateWrite(ON);
@@ -81,32 +68,6 @@ float distanceUpdate() {
 
     return averageDistance;
 }
-
-/*
-float distanceUpdate() {
-    distanceReadingsArray[distanceSampleIndex] = measureDistance();
-    distanceSampleIndex++;
-
-    if (distanceSampleIndex >= DISTANCE_SENSOR_SAMPLES) {
-        distanceSampleIndex = 0;
-    }
-
-    float distanceReadingsSum = 0.0;
-    for (int i = 0; i < DISTANCE_SENSOR_SAMPLES; i++) {
-        distanceReadingsSum += distanceReadingsArray[i];
-    }
-
-    float averageDistance = distanceReadingsSum / DISTANCE_SENSOR_SAMPLES;
-
-    // for debugging
-    char distanceStr[100] = "";
-    sprintf ( distanceStr, "Distance: %.2f cm\r\n", averageDistance );
-    pcSerialComStringWrite( distanceStr );
-
-
-    return averageDistance;
-}
-*/
 
 //=====[Implementations of private functions]==================================
 

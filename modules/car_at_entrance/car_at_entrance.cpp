@@ -72,6 +72,4 @@ float sensorUpdate()
     return currentLightLevel;
 }
 
-
-
 //=====[Implementations of public functions]===================================

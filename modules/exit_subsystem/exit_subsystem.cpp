@@ -37,32 +37,4 @@ void exitSubsystemUpdate() {
     }
 }
 
-/*
-void exitSubsysemUpdate()
-{
-    // Read current button state (assuming active low button - pressed when LOW)
-    bool currentButtonState = !exitButtonPin.read();
-    
-    // Check for button press (transition from not pressed to pressed)
-    if (currentButtonState && !previousButtonState) {
-        if (!gateIsOpen) {
-            
-            pcSerialComStringWrite("Exit Button Pressed - Opening Gate\r\n");
-            openGate();
-            gateIsOpen = true;
-        }
-    }
-    
-    // If gate is open and car has left (Car_Detect is false), close the gate
-    if (gateIsOpen && !carIsDetected()) {
-        pcSerialComStringWrite("Car has exited - Closing Gate\r\n");
-        closeGate();
-        gateIsOpen = false;
-    }
-    
-    // Update previous button state
-    previousButtonState = currentButtonState;
-}
-*/
-
 //=====[Implementations of private functions]==================================

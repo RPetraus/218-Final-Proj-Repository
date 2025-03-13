@@ -100,65 +100,6 @@ char matrixKeypadUpdate()
     return keyReleased;
 }
 
-/*
-char matrixKeypadUpdate()
-{
-    static int accumulatedDebounceMatrixKeypadTime = 0;
-    static char matrixKeypadLastKeyPressed = '\0';
-
-    char keyDetected = '\0';
-    char keyReleased = '\0';
-
-    switch( matrixKeypadState ) {
-
-    case MATRIX_KEYPAD_SCANNING:
-        keyDetected = matrixKeypadScan();
-        if( keyDetected != '\0' ) {
-            matrixKeypadLastKeyPressed = keyDetected;
-            accumulatedDebounceMatrixKeypadTime = 0;
-            matrixKeypadState = MATRIX_KEYPAD_DEBOUNCE;
-        }
-        break;
-
-    case MATRIX_KEYPAD_DEBOUNCE:
-        if( accumulatedDebounceMatrixKeypadTime >=
-            DEBOUNCE_BUTTON_TIME_MS ) {
-            keyDetected = matrixKeypadScan();
-            if( keyDetected == matrixKeypadLastKeyPressed ) {
-                matrixKeypadState = MATRIX_KEYPAD_KEY_HOLD_PRESSED;
-            } else {
-                matrixKeypadState = MATRIX_KEYPAD_SCANNING;
-            }
-        }
-        accumulatedDebounceMatrixKeypadTime =
-            accumulatedDebounceMatrixKeypadTime + timeIncrement_ms;
-        break;
-
-    case MATRIX_KEYPAD_KEY_HOLD_PRESSED:
-        keyDetected = matrixKeypadScan();
-        if( keyDetected != matrixKeypadLastKeyPressed ) {
-            if( keyDetected == '\0' ) {
-                keyReleased = matrixKeypadLastKeyPressed;
-
-                // extra stuff not in actual
-                // Report key released
-                char releaseMsg[30];
-                sprintf(releaseMsg, "%c", keyReleased);
-                pcSerialComStringWrite(releaseMsg);
-
-            }
-            matrixKeypadState = MATRIX_KEYPAD_SCANNING;
-        }
-        break;
-
-    default:
-        matrixKeypadReset();
-        break;
-    }
-    return keyReleased;
-}
-*/
-
 //=====[Implementations of private functions]==================================
 
 static char matrixKeypadScan()

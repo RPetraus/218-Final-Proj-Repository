@@ -124,7 +124,6 @@ bool isCodeCorrect() {
 //=====[Implementations of private functions]==================================
 
 static int* inputCode() {
-    //static int inputtedCode[CODE_LENGTH];
     int* inputtedCode = new int[CODE_LENGTH];
     char keyReleased;
     bool codeComplete = false;
@@ -168,54 +167,3 @@ static int* inputCode() {
 
     return inputtedCode;
 }
-
-/*
-static int* inputCode() {
-    pcSerialComStringWrite("\r\nPlease enter the code sequence: ");
-    
-    static int inputtedCode[CODE_LENGTH];
-    char keyReleased;
-    bool codeComplete = false;
-    int codeIndex = 0;
-    int displayPosition = 10;
-    char keyReleasedStr[2];
-    keyReleasedStr[1] = '\0';
-    
-    Timer timer;
-    timer.start();
-    
-    chrono::milliseconds timeout(10000);
-    
-    while (!codeComplete) {
-        keyReleased = matrixKeypadUpdate();
-
-        if (timer.elapsed_time() >= timeout) {
-            break;
-        }
-
-        if (keyReleased != '\0') {
-            if (keyReleased >= '0' && keyReleased <= '9') {
-                if (codeIndex < CODE_LENGTH) {
-                    inputtedCode[codeIndex] = keyReleased - '0';
-
-                    pcSerialComStringWrite("*");
-
-                    keyReleasedStr[0] = keyReleased;
-                    displayCharPositionWrite(displayPosition, 1);
-                    displayStringWrite(keyReleasedStr);
-
-                    codeIndex++;
-                    displayPosition++;
-
-                    if (codeIndex == CODE_LENGTH) {
-                        codeIndex = 0;
-                        codeComplete = true;
-                    }
-                }
-            }
-        }
-    }
-
-    return inputtedCode;
-}
-*/
