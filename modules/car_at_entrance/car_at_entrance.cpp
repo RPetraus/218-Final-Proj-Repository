@@ -52,32 +52,6 @@ bool carIsDetected()
     return carDetected;
 }
 
-/*
-bool carIsDetected()
-{
-    float currentLightLevel = sensorUpdate();
-
-    if (currentLightLevel >= CAR_PRESENT_LEVEL) {
-        carDetected = true;  
-
-        // Debug
-        char buffer[50];
-        sprintf(buffer, "Light level: %.2f\r\n", currentLightLevel);
-        pcSerialComStringWrite(buffer);
-
-    } else if (currentLightLevel < CAR_NOT_PRESENT_LEVEL) {
-        carDetected = false; 
-
-        // Debug
-        char buffer[50];
-        sprintf(buffer, "Light level: %.2f\r\n", currentLightLevel);
-        pcSerialComStringWrite(buffer);
-
-    }
-
-    return carDetected;
-}
-*/
 
 float sensorUpdate() 
 {
@@ -98,32 +72,6 @@ float sensorUpdate()
     return currentLightLevel;
 }
 
-
-/*
-float sensorUpdate() 
-{
-    lightReadingsArray[lightSampleIndex] = lightsens.read();
-    lightSampleIndex++;
-    
-    if (lightSampleIndex >= LIGHT_SENSOR_SAMPLES) {
-        lightSampleIndex = 0;
-    }
-
-    float lightReadingsSum = 0.0;
-    for (int i = 0; i < LIGHT_SENSOR_SAMPLES; i++) {
-        lightReadingsSum += lightReadingsArray[i];
-    }
-
-    float currentLightLevel = (1.0 - (lightReadingsSum / LIGHT_SENSOR_SAMPLES)) * 100.0;
-
-    // Debug
-    char buffer[50];
-    sprintf(buffer, "\r\nLight level: %.2f\r\n", currentLightLevel);
-    pcSerialComStringWrite(buffer);
-
-    return currentLightLevel;
-}
-*/
 
 
 //=====[Implementations of public functions]===================================
