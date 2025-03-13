@@ -25,17 +25,18 @@ We propose an automated underground parking system designed to enhance security,
 
 # Success Cases
 
-| Pass Case                          | Description                                                   | Expected Behavior                                              |
-|-------------------------------------|---------------------------------------------------------------|----------------------------------------------------------------|
-| **Correct Code Entered**            | The user enters the correct code within 3 attempts.            | The gate opens, and the system displays "Welcome!" before closing the gate after 5 seconds. |
-| **Car Detected with Correct Code** | A car is detected at the entrance, and the correct code is entered within the allowed attempts. | The system grants access, opens the gate, and displays a welcome message. |
-| **Multiple Incorrect Attempts (3)** | The user enters 3 incorrect codes.                            | After 3 failed attempts, the system triggers a security issue, activates the alarm, and displays "ALARM ACTIVATED!". |
-| **Successful Gate Operation**      | After entering the correct code, the gate opens and closes as expected. | The gate opens for 5 seconds and then closes.                  |
-| **Display Updates Correctly**      | The display shows the correct information during each attempt. | The system displays "3 10sec Attempts", the attempt number, and correct status messages ("Welcome!" or "ALARM ACTIVATED!"). |
-| **Siren Activated After 3 Failures** | After 3 incorrect attempts, the siren activates.              | The siren should be turned on, and the system should display "3 WRONG ATTEMPTS" and "ALARM ACTIVATED!". |
-| **Security Issue Cleared After Success** | Once the correct code is entered, the system clears the security issue. | The `securityIssue` flag is reset to `false`, and the system proceeds as normal. |
-| **Car Detected and System Activated** | The system detects a car at the entrance and activates the entrance subsystem. | The entrance system is activated and ready to receive code input. |
-| **Attempt Number Displayed Correctly** | Each attempt number is displayed correctly on the screen.      | The display shows the current attempt number in the format "Attempt X". |
+| Pass Case                          | Description                                                   | Expected Behavior                                              | Status |
+|-------------------------------------|---------------------------------------------------------------|----------------------------------------------------------------|--------|
+| **Correct Code Entered**            | The user enters the correct code within 3 attempts.            | The gate opens, and the system displays "Welcome!" before closing the gate after 5 seconds. | Pass   |
+| **Car Detected with Correct Code** | A car is detected at the entrance, and the correct code is entered within the allowed attempts. | The system grants access, opens the gate, and displays a welcome message. | Pass   |
+| **Multiple Incorrect Attempts (3)** | The user enters 3 incorrect codes.                            | After 3 failed attempts, the system triggers a security issue, activates the alarm, and displays "ALARM ACTIVATED!". | Pass   |
+| **Successful Gate Operation**      | After entering the correct code, the gate opens and closes as expected. | The gate opens for 5 seconds and then closes.                  | Pass   |
+| **Display Updates Correctly**      | The display shows the correct information during each attempt. | The system displays "3 10sec Attempts", the attempt number, and correct status messages ("Welcome!" or "ALARM ACTIVATED!"). | Pass   |
+| **Siren Activated After 3 Failures** | After 3 incorrect attempts, the siren activates.              | The siren should be turned on, and the system should display "3 WRONG ATTEMPTS" and "ALARM ACTIVATED!". | Pass   |
+| **Security Issue Cleared After Success** | Once the correct code is entered, the system clears the security issue. | The `securityIssue` flag is reset to `false`, and the system proceeds as normal. | Pass   |
+| **Car Detected and System Activated** | The system detects a car at the entrance and activates the entrance subsystem. | The entrance system is activated and ready to receive code input. | Pass   |
+| **Attempt Number Displayed Correctly** | Each attempt number is displayed correctly on the screen.      | The display shows the current attempt number in the format "Attempt X". | Pass   |
+
 
 
 # Fail Cases  
