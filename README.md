@@ -39,7 +39,7 @@ We propose an automated underground parking system designed to enhance security,
 
 
 
-# Fail Cases  
+# Trouble Shooting  
 
 | Fail Case                         | Description                                                   | Solution                                                       |
 |------------------------------------|---------------------------------------------------------------|---------------------------------------------------------------|
