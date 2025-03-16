@@ -33,7 +33,7 @@ We propose an automated underground parking system designed to enhance security,
 | **Successful Gate Operation**      | After entering the correct code, the gate opens and closes as expected. | The gate opens for 5 seconds and then closes. While opening or closing, redLed should be on. While gate is open, greenLed should be on                 | Pass   |
 | **Display Updates Correctly**      | The display shows the correct information during each attempt. | The system displays "3 10sec Attempts", the attempt number, and correct status messages ("Welcome!" or "ALARM ACTIVATED!"). | Pass   |
 | **Siren Activated After 3 Failures** | After 3 incorrect attempts, the siren activates.              | The siren should be turned on, and the system should display "3 WRONG ATTEMPTS" and "ALARM ACTIVATED!". | Pass   |
-| **Security Issue Cleared After Success** | Once the correct code is entered, the system clears the security issue. | The `securityIssue` flag is reset to `false`, and the system proceeds as normal. | Pass   |
+
 | **Car Detected and System Activated** | The system detects a car at the entrance and activates the entrance subsystem. | The entrance system is activated and ready to receive code input. | Pass   |
 | **Attempt Number Displayed Correctly** | Each attempt number is displayed correctly on the screen.      | The display shows the current attempt number in the format "Attempt X". | Pass   |
 
