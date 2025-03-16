@@ -23,77 +23,44 @@
 
 //=====[Declaration and initialization of private global variables]============
 
-static bool securityIssue = false;
+static bool securityIssue = false;  // Tracks if there is a security issue (e.g., failed attempts)
 
 //=====[Declarations (prototypes) of private functions]=========================
 
-static void showAttempt(int attemptNumber);
+static void showAttempt(int attemptNumber);  // Helper function to display attempt number
 
 //=====[Implementations of public functions]===================================
 
+// Initializes the entrance subsystem, displaying the welcome message
 void entranceSubsystemInit()
 {
-    displayCharPositionWrite ( 0,0 );
-    displayStringWrite( "Welcome!        " );
+    displayCharPositionWrite(0, 0);           // Set cursor to position (0, 0)
+    displayStringWrite("Welcome!        ");    // Display welcome message
 }
 
+// Updates the entrance subsystem logic (handles code entry and gate control)
 void entranceSubsystemUpdate() {
-    if (carIsDetected() && !securityIssue) {
-        bool correctCode = false;
-        int incorrectAttempts = 0;
-        int attemptNumber = 1;
+    if (carIsDetected() && !securityIssue) {  // Check if car is detected and no security issue
+        bool correctCode = false;             // Flag for correct code entry
+        int incorrectAttempts = 0;            // Counter for incorrect attempts
+        int attemptNumber = 1;                // Tracks the number of attempts
 
-        displayCharPositionWrite(0, 0);
-        displayStringWrite("3 10sec Attempts");
+        displayCharPositionWrite(0, 0);       // Set cursor to position (0, 0)
+        displayStringWrite("3 10sec Attempts");  // Display the number of attempts
 
+        // Attempt code entry, up to 3 times
         while (incorrectAttempts < 3 && !correctCode) {
-            showAttempt(attemptNumber);
+            showAttempt(attemptNumber);       // Display the current attempt number
 
+            // Check if the code entered is correct
             if (isCodeCorrect()) {
                 displayCharPositionWrite(0, 0);
-                displayStringWrite("Welcome!        ");
+                displayStringWrite("Welcome!        "); // Display welcome message
                 displayCharPositionWrite(0, 1);
-                displayStringWrite("                ");
-                correctCode = true;
-                openGate();
-                delay(5000);
-                closeGate();
+                displayStringWrite("                "); // Clear the second line
+
+                correctCode = true;            // Mark as correct code
+                openGate();                    // Open the gate
+                delay(5000);                   // Keep the gate open for 5 seconds
+                closeGate();                   // Close the gate after 5 seconds
             } else {
-                incorrectAttempts++;
-                attemptNumber++;
-            }
-        }
-
-        displayCharPositionWrite(0, 0);
-        displayStringWrite("Welcome!        ");
-        displayCharPositionWrite(0, 1);
-        displayStringWrite("                ");
-
-        for (int i = 0; i < 10; i++) {
-            sensorUpdate();
-        }
-
-        if (!correctCode && carIsDetected()) {
-            securityIssue = true;
-            externalSirenStateWrite(ON);
-            sirensUpdate();
-
-            displayCharPositionWrite(0, 0);
-            displayStringWrite("3 WRONG ATTEMPTS");
-
-            displayCharPositionWrite(0, 1);
-            displayStringWrite("ALARM ACTIVATED!");
-        }
-    }
-}
-
-//=====[Implementations of private functions]==================================
-
-void showAttempt(int attemptNumber) {
-    displayCharPositionWrite(0, 1);
-
-    char attemptMessage[20];
-    snprintf(attemptMessage, sizeof(attemptMessage), "Attempt %d:      ", attemptNumber);
-
-    displayStringWrite(attemptMessage);
-}
