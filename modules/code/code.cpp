@@ -1,39 +1,31 @@
 //=====[Libraries]=============================================================
 
 #include "mbed.h"
-
 #include "code.h"
-
 #include "pc_serial_com.h"
 #include "matrix_keypad.h"
 #include "display.h"
-
 #include "stdio.h"
 
 //=====[Declaration of private defines]========================================
 
-#define CODE_LENGTH 6
-
-//=====[Declaration of private data types]=====================================
-
-//=====[Declaration and initialization of public global objects]===============
-
-//=====[Declaration of external public global variables]=======================
+#define CODE_LENGTH 6  // Defines the required length of the security code
 
 //=====[Declaration and initialization of public global variables]=============
 
-int codeSequence[CODE_LENGTH] = {1, 1, 1, 1, 1, 1};
+int codeSequence[CODE_LENGTH] = {1, 1, 1, 1, 1, 1};  // Default security code
 
 //=====[Declaration and initialization of private global variables]============
 
-static int codeLetterNum;
+static int codeLetterNum;  // Stores the number of entered code digits
 
 //=====[Declarations (prototypes) of private functions]========================
 
-static int* inputCode();
+static int* inputCode();  // Function prototype for user code input
 
 //=====[Implementations of public functions]===================================
 
+// Resets the security code with user input validation
 void resetCode() {
     pcSerialComStringWrite("\r\n\r\nPlease enter a new code sequence.\r\n");
     pcSerialComStringWrite("The allowable length of the sequence is 6.\r\n");
@@ -47,6 +39,7 @@ void resetCode() {
     while (true) {
         pcSerialComStringWrite("Enter the new code: ");
         
+        // Collect new code sequence from user input
         for (int i = 0; i < CODE_LENGTH; i++) {
             do {
                 pcSerialComCharRead(&receivedChar);
@@ -58,7 +51,7 @@ void resetCode() {
 
                 if (receivedChar >= '0' && receivedChar <= '9') {
                     tempCode[i] = receivedChar - '0';
-                    pcSerialComStringWrite("*");
+                    pcSerialComStringWrite("*");  // Masking user input
                     break;
                 } else {
                     pcSerialComStringWrite("\r\nInvalid input! Please enter a digit (0-9).\r\n");
@@ -72,6 +65,7 @@ void resetCode() {
 
         pcSerialComStringWrite("\r\nRe-enter the code to confirm: ");
 
+        // Confirm new code by re-entering
         bool match = true;
         for (int i = 0; i < CODE_LENGTH; i++) {
             do {
@@ -86,7 +80,7 @@ void resetCode() {
                     if (tempCode[i] != receivedChar - '0') {
                         match = false;
                     }
-                    pcSerialComStringWrite("*");
+                    pcSerialComStringWrite("*");  // Masking input
                     break;
                 } else {
                     pcSerialComStringWrite("\r\nInvalid input! Please enter a digit (0-9).\r\n");
@@ -98,6 +92,7 @@ void resetCode() {
             } while (true);
         }
 
+        // Set the new code if both entries match
         if (match) {
             for (int i = 0; i < CODE_LENGTH; i++) {
                 codeSequence[i] = tempCode[i];
@@ -110,6 +105,7 @@ void resetCode() {
     }
 }
 
+// Compares user-entered code with stored code
 bool isCodeCorrect() {
     int* inputtedCode = inputCode(); 
 
@@ -123,24 +119,25 @@ bool isCodeCorrect() {
 
 //=====[Implementations of private functions]==================================
 
+// Captures user input from the keypad and validates it
 static int* inputCode() {
-    int* inputtedCode = new int[CODE_LENGTH];
+    int* inputtedCode = new int[CODE_LENGTH];  // Dynamically allocate memory for code input
     char keyReleased;
     bool codeComplete = false;
     int codeIndex = 0;
-    int displayPosition = 10;
+    int displayPosition = 10;  // Position on LCD to display input
     char keyReleasedStr[2];
     keyReleasedStr[1] = '\0';
     
     Timer timer;
     timer.start();
     
-    chrono::milliseconds timeout(10000);
+    chrono::milliseconds timeout(10000);  // Timeout for input entry (10 seconds)
     
     while (!codeComplete) {
-        keyReleased = matrixKeypadUpdate();
+        keyReleased = matrixKeypadUpdate();  // Get keypad input
 
-        if (timer.elapsed_time() >= timeout) {
+        if (timer.elapsed_time() >= timeout) {  // Check if timeout has occurred
             break;
         }
 
@@ -150,7 +147,7 @@ static int* inputCode() {
                     inputtedCode[codeIndex] = keyReleased - '0';
 
                     keyReleasedStr[0] = keyReleased;
-                    displayCharPositionWrite(displayPosition, 1);
+                    displayCharPositionWrite(displayPosition, 1);  // Update LCD display
                     displayStringWrite(keyReleasedStr);
 
                     codeIndex++;
@@ -158,7 +155,7 @@ static int* inputCode() {
 
                     if (codeIndex == CODE_LENGTH) {
                         codeIndex = 0;
-                        codeComplete = true;
+                        codeComplete = true;  // Code entry complete
                     }
                 }
             }
