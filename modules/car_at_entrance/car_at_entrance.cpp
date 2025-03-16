@@ -53,7 +53,7 @@ bool carIsDetected()
 }
 
 
-float sensorUpdate() 
+float sensorUpdate()     // averages 10 samples
 {
     lightReadingsArray[lightSampleIndex] = lightsens.read();
     lightSampleIndex++;
