@@ -2,6 +2,7 @@
 
 #include "mbed.h"
 #include "arm_book_lib.h"
+
 #include "move_gate.h"
 
 //=====[Declaration of private defines]========================================
@@ -15,8 +16,19 @@
 
 //=====[Declaration and initialization of public global objects]===============
 
+/**
+ * Green LED indicating that the gate is open.
+ */
 DigitalOut greenLED(D10);   // Green LED indicating gate open
+
+/**
+ * Red LED indicating that the gate is closed.
+ */
 DigitalOut redLED(D11);     // Red LED indicating gate closed
+
+/**
+ * PWM output used to control the gate servo.
+ */
 PwmOut servo(PF_9);         // PWM output to control the gate servo
 
 //=====[Declaration of external public global variables]=======================
@@ -29,7 +41,11 @@ PwmOut servo(PF_9);         // PWM output to control the gate servo
 
 //=====[Implementations of public functions]===================================
 
-// Initializes the gate system by setting LED states and servo parameters
+/**
+ * Initializes the gate system by setting LED states and servo parameters.
+ * This function configures the initial state of the gate (closed), turns off LEDs, 
+ * and sets up the PWM parameters for controlling the servo motor.
+ */
 void moveGateInit() {
     greenLED = OFF;           // Turn off green LED (gate closed)
     redLED = OFF;             // Turn off red LED (gate closed)
@@ -37,7 +53,11 @@ void moveGateInit() {
     servo.write(GATE_LOW);    // Set servo to gate closed position
 }
 
-// Opens the gate by gradually increasing the servo position
+/**
+ * Opens the gate by gradually increasing the servo position.
+ * This function moves the servo motor from the closed position to the open position, 
+ * turning on the red LED during the movement and the green LED when fully open.
+ */
 void openGate() {
     redLED = ON;              // Turn on red LED (gate is moving)
     for (int i = 0; i < 250; i++) {
@@ -48,7 +68,11 @@ void openGate() {
     greenLED = ON;            // Turn on green LED (gate open)
 }
 
-// Closes the gate by gradually decreasing the servo position
+/**
+ * Closes the gate by gradually decreasing the servo position.
+ * This function moves the servo motor from the open position to the closed position, 
+ * turning on the green LED during the movement and the red LED when fully closed.
+ */
 void closeGate() {    
     greenLED = OFF;           // Turn off green LED (gate is moving)
     redLED = ON;              // Turn on red LED (gate is closing)
