@@ -28,41 +28,68 @@ static bool externalSirenState = OFF;  // Current state of external siren (ON/OF
 //=====[Implementations of public functions]===================================
 
 /**
-* Initializes the sirens to not output
-* Both internal and external sirens are set to ON (inactive state)
-*/
+ * @brief Initializes the sirens to the OFF state (inactive).
+ * 
+ * Both internal and external sirens are set to ON (inactive state) 
+ * at the beginning to prevent them from being activated unintentionally.
+ */
 void sirensInit()
 {
     internalSirenPin = ON;  // Internal siren is inactive
     externalSirenPin = ON;  // External siren is inactive
 }
- 
 
-// Reads the current state of the internal siren (ON/OFF)
+/**
+ * @brief Reads the current state of the internal siren (ON/OFF).
+ * 
+ * @return The current state of the internal siren. Returns true if 
+ * the siren is on, otherwise false.
+ */
 bool internalSirenStateRead()
 {
     return internalSirenState;
 }
 
-// Reads the current state of the external siren (ON/OFF)
+/**
+ * @brief Reads the current state of the external siren (ON/OFF).
+ * 
+ * @return The current state of the external siren. Returns true if 
+ * the siren is on, otherwise false.
+ */
 bool externalSirenStateRead()
 {
     return externalSirenState;
 }
 
-// Sets the internal siren state (ON/OFF)
+/**
+ * @brief Sets the internal siren state (ON/OFF).
+ * 
+ * @param state The desired state of the internal siren. Pass true 
+ * to activate the siren (ON), and false to deactivate it (OFF).
+ */
 void internalSirenStateWrite(bool state)
 {
     internalSirenState = state;
 }
 
-// Sets the external siren state (ON/OFF)
+/**
+ * @brief Sets the external siren state (ON/OFF).
+ * 
+ * @param state The desired state of the external siren. Pass true 
+ * to activate the siren (ON), and false to deactivate it (OFF).
+ */
 void externalSirenStateWrite(bool state)
 {
     externalSirenState = state;
 }
 
-// Updates the physical state of both sirens based on their current state
+/**
+ * @brief Updates the physical state of both sirens based on their current state.
+ * 
+ * This function controls the actual hardware pins for both sirens. If the 
+ * internal or external siren is set to ON (active), the corresponding pin 
+ * is set to LOW. If the siren is OFF (inactive), the pin is set to HIGH.
+ */
 void sirensUpdate() {
     if (internalSirenState) {
         internalSirenPin = OFF;  // Internal siren is ON (active)
