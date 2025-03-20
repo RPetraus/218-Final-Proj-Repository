@@ -9,23 +9,33 @@
 
 //=====[Declaration of private defines]========================================
 
-#define CODE_LENGTH 6  // Defines the required length of the security code
+#define CODE_LENGTH 6  ///< Defines the required length of the security code
 
 //=====[Declaration and initialization of public global variables]=============
 
-int codeSequence[CODE_LENGTH] = {1, 1, 1, 1, 1, 1};  // Default security code
+int codeSequence[CODE_LENGTH] = {1, 1, 1, 1, 1, 1};  ///< Default security code
 
 //=====[Declaration and initialization of private global variables]============
 
-static int codeLetterNum;  // Stores the number of entered code digits
+static int codeLetterNum;  ///< Stores the number of entered code digits
 
 //=====[Declarations (prototypes) of private functions]========================
 
-static int* inputCode();  // Function prototype for user code input
+/**
+ * @brief Captures user input from the keypad and validates it.
+ * 
+ * @return Pointer to the dynamically allocated array containing the entered code.
+ */
+static int* inputCode();
 
 //=====[Implementations of public functions]===================================
 
-// Resets the security code with user input validation
+/**
+ * @brief Resets the security code with user input validation.
+ * 
+ * This function allows the user to enter a new security code, confirms it by re-entering,
+ * and updates the stored code if both entries match.
+ */
 void resetCode() {
     pcSerialComStringWrite("\r\n\r\nPlease enter a new code sequence.\r\n");
     pcSerialComStringWrite("The allowable length of the sequence is 6.\r\n");
@@ -105,7 +115,11 @@ void resetCode() {
     }
 }
 
-// Compares user-entered code with stored code
+/**
+ * @brief Compares user-entered code with the stored security code.
+ * 
+ * @return True if the entered code matches the stored code, false otherwise.
+ */
 bool isCodeCorrect() {
     int* inputtedCode = inputCode(); 
 
@@ -119,25 +133,32 @@ bool isCodeCorrect() {
 
 //=====[Implementations of private functions]==================================
 
-// Captures user input from the keypad and validates it
+/**
+ * @brief Captures user input from the keypad and validates it.
+ * 
+ * This function reads keypad inputs until a full code is entered or a timeout occurs.
+ * It dynamically allocates memory for the inputted code, which must be manually deallocated.
+ * 
+ * @return Pointer to the dynamically allocated array containing the entered code.
+ */
 static int* inputCode() {
-    int* inputtedCode = new int[CODE_LENGTH];  // Dynamically allocate memory for code input
+    int* inputtedCode = new int[CODE_LENGTH];  ///< Dynamically allocated memory for storing code input
     char keyReleased;
     bool codeComplete = false;
     int codeIndex = 0;
-    int displayPosition = 10;  // Position on LCD to display input
+    int displayPosition = 10;  ///< Position on LCD to display input
     char keyReleasedStr[2];
     keyReleasedStr[1] = '\0';
     
     Timer timer;
     timer.start();
     
-    chrono::milliseconds timeout(10000);  // Timeout for input entry (10 seconds)
+    chrono::milliseconds timeout(10000);  ///< Timeout for input entry (10 seconds)
     
     while (!codeComplete) {
-        keyReleased = matrixKeypadUpdate();  // Get keypad input
+        keyReleased = matrixKeypadUpdate();  ///< Get keypad input
 
-        if (timer.elapsed_time() >= timeout) {  // Check if timeout has occurred
+        if (timer.elapsed_time() >= timeout) {  ///< Check if timeout has occurred
             break;
         }
 
@@ -145,22 +166,17 @@ static int* inputCode() {
             if (keyReleased >= '0' && keyReleased <= '9') {
                 if (codeIndex < CODE_LENGTH) {
                     inputtedCode[codeIndex] = keyReleased - '0';
-
                     keyReleasedStr[0] = keyReleased;
-                    displayCharPositionWrite(displayPosition, 1);  // Update LCD display
+                    displayCharPositionWrite(displayPosition, 1);  ///< Update LCD display
                     displayStringWrite(keyReleasedStr);
-
                     codeIndex++;
                     displayPosition++;
-
                     if (codeIndex == CODE_LENGTH) {
-                        codeIndex = 0;
-                        codeComplete = true;  // Code entry complete
+                        codeComplete = true;  ///< Code entry complete
                     }
                 }
             }
         }
     }
-
     return inputtedCode;
 }
