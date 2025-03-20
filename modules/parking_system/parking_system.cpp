@@ -35,37 +35,40 @@
 
 //=====[Implementations of public functions]===================================
 
+/**
+ * @brief Initializes the parking system by setting up all necessary subsystems.
+ * 
+ * This function performs the initialization of all the modules needed for the 
+ * parking system to function properly, including the sirens, display, keypad, 
+ * gate movement, entrance and exit subsystems, and sensors.
+ */
 void parkingSystemInit()
 {     
-    sirensInit();
-
-    displayInit();
-
-    matrixKeypadInit(UPDATE_TIME_MS);
-
-    moveGateInit();
-    
-    carAtEntranceInit();
-
-    entranceSubsystemInit();
-
-    exitSubsystemInit();
-
-    distanceSensorInit();
-
-    codeResetButtonInterrupt();
-
-    collisionSensorInterrupt();
+    sirensInit();                    ///< Initializes the sirens system.
+    displayInit();                   ///< Initializes the display system.
+    matrixKeypadInit(UPDATE_TIME_MS);///< Initializes the keypad matrix with a defined update time.
+    moveGateInit();                  ///< Initializes the gate movement system.
+    carAtEntranceInit();             ///< Initializes the car detection at the entrance.
+    entranceSubsystemInit();         ///< Initializes the entrance subsystem for vehicle entry control.
+    exitSubsystemInit();             ///< Initializes the exit subsystem for vehicle exit control.
+    distanceSensorInit();            ///< Initializes the distance sensor for collision prevention.
+    codeResetButtonInterrupt();      ///< Sets up the interrupt for the code reset button.
+    collisionSensorInterrupt();      ///< Sets up the interrupt for collision sensor events.
 }
 
-
+/**
+ * @brief Updates the state of the parking system.
+ * 
+ * This function updates the entrance and exit subsystems, handling the logic 
+ * for vehicle entry and exit. It also handles periodic delays to manage 
+ * the system's timing.
+ */
 void parkingSystemUpdate()
 {
-    entranceSubsystemUpdate();
-
-    exitSubsystemUpdate();
+    entranceSubsystemUpdate();       ///< Updates the entrance subsystem for vehicle entry.
+    exitSubsystemUpdate();           ///< Updates the exit subsystem for vehicle exit.
     
-    delay(SYSTEM_TIME_INCREMENT_MS);
+    delay(SYSTEM_TIME_INCREMENT_MS); ///< Delays to maintain the system time increment.
 }
 
 //=====[Implementations of private functions]==================================
